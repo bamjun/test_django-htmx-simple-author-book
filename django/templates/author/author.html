@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block base %}
+<div id="main">
+
+    <button hx-get="{% url 'author_create' %}" hx-swap="beforeend" hx-target="#bookforms">작성자 생성</button>
+
+    <div id="bookforms">
+        {% for form in author %}
+        {% include 'author/author_detail.html' %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
