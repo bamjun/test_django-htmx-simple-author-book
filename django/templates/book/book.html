@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 {% block base %}
+<div id="bookmain">
+    <div hx-target="#bookmain" hx-swap="outerHTML">
+        <button hx-get="{% url 'author' %}">이전으로</button>
 
+        <h3>{{ author.name }}의 북생성하기</h3>
 
+    </div>
+</div>
 {% endblock %}

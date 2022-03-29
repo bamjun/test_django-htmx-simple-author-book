@@ -1,7 +1,7 @@
 <div hx-target="this" hx-swap="outerHTML">
     <p>이름 : {{ form.name }}</p>
     <p hx-target="#main" hx-swap="outerHTML">
-        <button hx-get="{% url 'book' form.id %}"> {{form.id}}북 추가</button>
+        <button hx-get="{% url 'book' form.id %}">북 추가</button>
     </p>
     <button hx-get="{% url 'author_update' form.id %}">Update</button>
     <button hx-post="{% url 'author_delete' form.id %}">Delete</button>

@@ -73,7 +73,24 @@ def book(request, pk):
             return redirect("book", pk=book.id)
 
     context = {
+        "author": author,
         "form": form
     }
 
     return render(request, "book/book.html", context)
+
+
+def book_create(request):
+    return HttpResponse('')
+
+
+def book_detail(request):
+    return HttpResponse('')
+
+
+def book_update(request):
+    return HttpResponse('')
+
+
+def book_delete(request):
+    return HttpResponse('')
