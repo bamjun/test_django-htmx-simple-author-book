@@ -63,34 +63,61 @@ def author_delete(request, pk):
 
 def book(request, pk):
     author = Author.objects.get(pk=pk)
-    form = BookForm(request.POST or None)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            book = form.save(commit=False)
-            book.author = author
-            book.save()
-            return redirect("book", pk=book.id)
+    books = Book.objects.filter(author=author)
 
     context = {
         "author": author,
-        "form": form
+        "books": books
+
     }
 
     return render(request, "book/book.html", context)
 
 
-def book_create(request):
-    return HttpResponse('')
+def book_create(request, pk):
+    author = Author.objects.get(pk=pk)
+    bookform = BookForm(request.POST or None)
+
+    if request.method == 'POST':
+        if bookform.is_valid():
+            form = bookform.save(commit=False)
+            form.author = author
+            form.save()
+            return redirect('book_detail', pk=form.id)
+
+    context = {
+        "author": author,
+        "bookform": bookform,
+    }
+
+    return render(request, "book/book_create.html", context)
 
 
-def book_detail(request):
-    return HttpResponse('')
+def book_detail(request, pk):
+    book = Book.objects.get(pk=pk)
+    context = {
+        "book": book
+    }
+    return render(request, "book/book_detail.html", context)
 
 
-def book_update(request):
-    return HttpResponse('')
+def book_update(request, pk):
+    book = Book.objects.get(pk=pk)
+    bookform = BookForm(request.POST or None, instance=book)
+    if request.method == 'POST':
+        if bookform.is_valid():
+            book = bookform.save()
+            return redirect('book_detail', pk=book.id)
+
+    context = {
+        'book': book,
+        'bookform': bookform
+    }
+
+    return render(request, "book/book_create.html", context)
 
 
-def book_delete(request):
+def book_delete(request, pk):
+    book = Book.objects.get(pk=pk)
+    book.delete()
     return HttpResponse('')

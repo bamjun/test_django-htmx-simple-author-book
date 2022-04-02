@@ -2,11 +2,17 @@
 
 {% block base %}
 <div id="bookmain">
-    <div hx-target="#bookmain" hx-swap="outerHTML">
-        <button hx-get="{% url 'author' %}">이전으로</button>
+    <button hx-get="{% url 'author' %}" hx-target="#bookmain" hx-swap="outerHTML">이전으로</button>
 
-        <h3>{{ author.name }}의 북생성하기</h3>
+    <h3>{{ author.name }}의 북생성하기</h3>
 
+    <button hx-get="{% url 'book_create' author.id %}" hx-target="#bookdetail" hx-swap="beforeend">북 추가하기</button>
+
+    <div id="bookdetail">
+        {% for book in books %}
+        {% include 'book/book_detail.html' %}
+        {% endfor %}
     </div>
+
 </div>
 {% endblock %}
